@@ -14,10 +14,13 @@ function HomePage() {
           <a href="#" className="hover:text-sky-300">News</a>
           <a href="#" className="hover:text-sky-300">Predict</a>
         </div>
-        <div>
+        <div className="flex gap-x-4">
           <button className="bg-white text-sky-800 px-4 py-1 rounded-full"
             onClick={() => navigate('/login')}
-          >Login</button>
+          >Sign in</button>
+            <button className="bg-white text-sky-800 px-4 py-1 rounded-full"
+            onClick={() => navigate('/login')}
+          >Sign up</button>
         </div>
       </nav>
 
