@@ -1,30 +1,28 @@
 import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import DiseaseDetection from './DiseaseDetection';
 
-function HomePage() {
+const HomePage = () => {
   const navigate = useNavigate();
+  const [activeSection, setActiveSection] = useState('home');
 
   return (
-    <div className="bg-sky-50 font-sans overflow-x-hidden overflow-y-hidden">
+    <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Navbar */}
-      <nav className="flex justify-between items-center px-8 py-4 bg-sky-800 text-white shadow-md">
-        <div className="text-2xl font-bold">HealthNet</div>
-        <div className="space-x-6 hidden md:flex">
-          <a href="#" className="hover:text-sky-300">Home</a>
-          <a href="#" className="hover:text-sky-300">Doctors</a>
-          <a href="#" className="hover:text-sky-300">News</a>
-          <a href="#" className="hover:text-sky-300">Predict</a>
-        </div>
-        <div className="flex gap-x-4">
-          <button className="bg-white text-sky-800 px-4 py-1 rounded-full"
-            onClick={() => navigate('/login')}
-          >Sign in</button>
-            <button className="bg-white text-sky-800 px-4 py-1 rounded-full"
-            onClick={() => navigate('/login')}
-          >Sign up</button>
-        </div>
-      </nav>
+      <header className="bg-gray-300 py-4 shadow">
+        <nav className="flex justify-center space-x-10 text-lg font-medium">
+          {['home', 'detect', 'health', 'connect'].map((section) => (
+              <a href={`#${section}`} className="hover:text-sky-300"  onClick={() => setActiveSection(section)}>{section}</a>
+          ))}
+        </nav>
+      
+      </header>
 
-      {/* Hero Section */}
+      {/* Main Content */}
+      <main className="flex-grow p-6">
+        {activeSection === 'home' && (
+          <div className="text-center">
+           {/* Hero Section */}
       <section className="text-center py-16 px-4 bg-gradient-to-br from-sky-200 to-white relative overflow-hidden">
         <h1 className="text-4xl md:text-5xl font-extrabold text-sky-900 mb-4">Your Health, Simplified.</h1>
         <p className="text-gray-600 max-w-2xl mx-auto text-lg mb-6">
@@ -33,8 +31,8 @@ function HomePage() {
         <button className="bg-sky-600 text-white px-6 py-3 rounded-full hover:bg-sky-700 transition shadow-lg"
           onClick={() => {
             console.log("Try It Free button clicked");
-            navigate('/free');
-          }}>Try It Free</button>
+            navigate('/login');
+          }}>Login</button>
 
         {/* Decorative Circles */}
         <div className="absolute top-10 left-10 w-24 h-24 bg-sky-300 rounded-full opacity-30 blur-xl pointer-events-none"></div>
@@ -92,22 +90,36 @@ function HomePage() {
           }}>Create Free Account</button>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-sky-800 text-white text-center py-4 mt-10">
-        &copy; 2025 HealthNet. All rights reserved.
-      </footer>
+          </div>
+        )}
 
-      {/* Navigation Button to About Page */}
-      <div className="text-center py-6">
-        <button
-          className="mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          onClick={() => navigate('/about')}
-        >
-          Go to About Page
-        </button>
-      </div>
+        {activeSection === 'detect' && (
+          <div>
+            <DiseaseDetection />
+          </div>
+        )}
+
+        {activeSection === 'health' && (
+          <div className="text-center">
+            <h2 className="text-xl">Health Feed</h2>
+            <p>Coming soon...</p>
+          </div>
+        )}
+
+        {activeSection === 'connect' && (
+          <div className="text-center">
+            <h2 className="text-xl">Connect With Experts</h2>
+            <p>Contact support or schedule an appointment.</p>
+          </div>
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-300 py-4 text-center">
+        <p className="text-sm">Footer content here</p>
+      </footer>
     </div>
   );
-}
+};
 
 export default HomePage;

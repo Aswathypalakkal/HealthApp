@@ -5,6 +5,7 @@ import AboutPage from './pages/AboutPage';
 import FreePage from './pages/FreePage';
 import LoginPage from './pages/LoginPage';
 import CreateFreePage from './pages/CreateFreePage';
+import DiseaseDetection from './pages/DiseaseDetection';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/free" element={<FreePage />} />  
-      <Route path="/Createfree" element={<CreateFreePage />} />        
+      <Route path="/Createfree" element={<CreateFreePage />} />  
+      <Route path="/DiseaseDetection" element={<DiseaseDetection />} />        
     </Routes>
   );
 }
