@@ -9,14 +9,21 @@ const HomePage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Navbar */}
-      <header className="bg-gray-300 py-4 shadow">
-        <nav className="flex justify-center space-x-10 text-lg font-medium">
-          {['home', 'detect', 'health', 'connect'].map((section) => (
-              <a href={`#${section}`} className="hover:text-sky-300"  onClick={() => setActiveSection(section)}>{section}</a>
-          ))}
-        </nav>
+    <header className="bg-gradient-to-br from-sky-200 to-white py-4 shadow">
+  <nav className="flex justify-center space-x-4 text-lg font-medium text-center">
+    {['home', 'detect', 'health', 'connect'].map((section) => (
+      <a
+        key={section}
+        href={`#${section}`}
+        className="hover:text-sky-900 transition duration-200 w-[8%]"
+        onClick={() => setActiveSection(section)}
+      >
+        {section}
+      </a>
+    ))}
+  </nav>
       
-      </header>
+</header>
 
       {/* Main Content */}
       <main className="flex-grow p-6">
@@ -28,7 +35,7 @@ const HomePage = () => {
         <p className="text-gray-600 max-w-2xl mx-auto text-lg mb-6">
           Detect health risks early, connect with doctors, and stay informed with real-time medical updates – all from one platform.
         </p>
-        <button className="bg-sky-600 text-white px-6 py-3 rounded-full hover:bg-sky-700 transition shadow-lg"
+        <button className="bg-sky-600 text-white px-6 py-3 rounded-full hover:bg-sky-700 transition shadow-lg w-[15%]"
           onClick={() => {
             console.log("Try It Free button clicked");
             navigate('/login');
@@ -83,7 +90,7 @@ const HomePage = () => {
       <section className="text-center py-12 bg-white">
         <h2 className="text-2xl font-bold text-sky-900 mb-4">Start Your Health Journey Today</h2>
         <p className="text-gray-600 mb-6">Join thousands of users improving their lives with HealthNet.</p>
-        <button className="bg-pink-500 text-white px-6 py-2 rounded-full hover:bg-pink-600 transition"
+        <button className="bg-pink-500 text-white px-6 py-2 rounded-full hover:bg-pink-600 transition w-[15%]"
           onClick={() => {
             console.log("Try It Free button clicked");
             navigate('/Createfree');
