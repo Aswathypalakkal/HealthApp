@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import DiseaseDetection from './DiseaseDetection';
+import { useSelector } from 'react-redux';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('home');
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
+  console.log("the login is :",isLoggedIn)
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
@@ -35,11 +38,12 @@ const HomePage = () => {
         <p className="text-gray-600 max-w-2xl mx-auto text-lg mb-6">
           Detect health risks early, connect with doctors, and stay informed with real-time medical updates – all from one platform.
         </p>
+        {!isLoggedIn?
         <button className="bg-sky-600 text-white px-6 py-3 rounded-full hover:bg-sky-700 transition shadow-lg w-[15%]"
           onClick={() => {
             console.log("Try It Free button clicked");
             navigate('/login');
-          }}>Login</button>
+          }}>login</button>:console.log("nothing")}
 
         {/* Decorative Circles */}
         <div className="absolute top-10 left-10 w-24 h-24 bg-sky-300 rounded-full opacity-30 blur-xl pointer-events-none"></div>

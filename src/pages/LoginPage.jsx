@@ -4,14 +4,18 @@ import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from './firebaseConfig';
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaMicrosoft } from "react-icons/fa";
+import { useDispatch } from 'react-redux';
+import { login } from './authSlice';
 
 function App() {
+  const dispatch = useDispatch();
   const [user, setUser] = useState(null);
 
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       setUser(result.user); // 🔒 Google login successful
+      dispatch(login(result.user)); // 🔁 Save to Redux
       console.log('User:', result.user);
     } catch (error) {
       console.error('Login Error:', error.message);
