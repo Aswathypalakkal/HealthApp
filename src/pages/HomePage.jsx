@@ -8,21 +8,54 @@ const HomePage = () => {
   const [activeSection, setActiveSection] = useState('home');
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   console.log("the login is :",isLoggedIn)
+  
+  let content = null;
 
+   if (!isLoggedIn) {
+     content = (
+      <div>
+        <h2>Please login to your account</h2>
+      </div>
+    );
+   }
+  else if (activeSection === 'detect') {
+    content = (
+      <div>
+        <DiseaseDetection />
+      </div>
+    );
+  }
+  else if (activeSection === 'health') {
+    content = (
+      <div>
+       <h1>Health page is here...</h1>
+      </div>
+    );
+  }
+  else if (activeSection === 'connect') {
+    content = (
+      <div>
+         <h1>Connect to experts...</h1>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Navbar */}
     <header className="bg-gradient-to-br from-sky-200 to-white py-4 shadow">
   <nav className="flex justify-center space-x-4 text-lg font-medium text-center">
     {['home', 'detect', 'health', 'connect'].map((section) => (
-      <a
+      <button
         key={section}
-        href={`#${section}`}
+      //  href={`#${section}`}
         className="hover:text-sky-900 transition duration-200 w-[8%]"
-        onClick={() => setActiveSection(section)}
+        onClick={() =>{ setActiveSection(section);
+           navigate(`/${section}`);
+        }
+        }
       >
         {section}
-      </a>
+      </button>
     ))}
   </nav>
       
@@ -104,25 +137,13 @@ const HomePage = () => {
           </div>
         )}
 
-        {activeSection === 'detect' && (
-          <div>
-            <DiseaseDetection />
-          </div>
-        )}
-
-        {activeSection === 'health' && (
-          <div className="text-center">
-            <h2 className="text-xl">Health Feed</h2>
-            <p>Coming soon...</p>
-          </div>
-        )}
-
-        {activeSection === 'connect' && (
-          <div className="text-center">
-            <h2 className="text-xl">Connect With Experts</h2>
-            <p>Contact support or schedule an appointment.</p>
-          </div>
-        )}
+      {
+      activeSection != 'home' && (
+  <div>
+    {content}
+  </div>
+)}
+      
       </main>
 
       {/* Footer */}
