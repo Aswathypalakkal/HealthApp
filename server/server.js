@@ -27,18 +27,22 @@ app.get('*', (req, res) => {
 
 // ✅ Diabetes Prediction Route
 app.post("/predict", async(req, res) => {
- const { values } = req.body;
+ console.log("Prediction is happening ......")
+ const  values  = req.body.values;
+ const  disease  = req.body.disease;
+ console.log("the body is  are :",  req.body);
 
     try {
         const response = await axios.post('http://localhost:5000/predict', {
-            values: values
+            values: values,
+            disease : diseases
         });
 
 
         res.send(response.data);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Prediction error');
+        res.status(500).json({ error: 'Prediction error' }); // ✅ return JSON object
     }
 });
 

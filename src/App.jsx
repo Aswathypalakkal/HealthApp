@@ -8,6 +8,7 @@ import CreateFreePage from './pages/CreateFreePage';
 import DiseaseDetection from './pages/DiseaseDetection';
 import DeseaseResult from './pages/DeseaseResult';
 import DiabetesPredictor from './pages/diabetesPredictor';
+import HeartDiseasePredictor from './pages/HeartDiseasePredictor';
 
 function App() {
   return (
@@ -22,9 +23,9 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/free" element={<FreePage />} />  
       <Route path="/Createfree" element={<CreateFreePage />} />  
-      <Route path="/DiseaseDetection" element={<DiseaseDetection />} />  
+      <Route path="/DiseaseDetection" element={<DiseaseDetection />} /> 
       <Route path="/Diabetes" element={<DiabetesPredictor />} />
-      <Route path="/HeartDisease" element={<DeseaseResult />} />
+      <Route path="/HeartDisease" element={<HeartDiseasePredictor />} />
       <Route path="/Parkinson" element={<DeseaseResult />} />
       <Route path="/COVID" element={<DeseaseResult />} />  
       <Route path="/Alzheimer" element={<DeseaseResult />} />  

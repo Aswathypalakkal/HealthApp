@@ -19,7 +19,7 @@ const DiabetesPredictor = () => {
     const res = await fetch('/predict', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ values }),
+      body: JSON.stringify({ values: values, disease: "diabetes" }),
     });
     console.log("the result :",res.body)
 
