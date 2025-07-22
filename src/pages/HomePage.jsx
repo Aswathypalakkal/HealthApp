@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import DiseaseDetection from './DiseaseDetection';
 import { useSelector } from 'react-redux';
+import PostFeed from './PostFeed';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const HomePage = () => {
   else if (activeSection === 'health') {
     content = (
       <div>
-       <h1>Health page is here...</h1>
+       <PostFeed />
       </div>
     );
   }
