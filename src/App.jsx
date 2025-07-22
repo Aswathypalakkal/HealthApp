@@ -9,6 +9,7 @@ import DiseaseDetection from './pages/DiseaseDetection';
 import DeseaseResult from './pages/DeseaseResult';
 import DiabetesPredictor from './pages/diabetesPredictor';
 import HeartDiseasePredictor from './pages/HeartDiseasePredictor';
+import AlzheimerPredictor from './pages/AlzheimerPredictor';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
       <Route path="/HeartDisease" element={<HeartDiseasePredictor />} />
       <Route path="/Parkinson" element={<DeseaseResult />} />
       <Route path="/COVID" element={<DeseaseResult />} />  
-      <Route path="/Alzheimer" element={<DeseaseResult />} />  
+      <Route path="/Alzheimer" element={<AlzheimerPredictor />} />  
       <Route path="/Hypertension" element={<DeseaseResult />} />   
       <Route path="/Asthma" element={<DeseaseResult />} />
       <Route path="/Tuberculosis" element={<DeseaseResult />} />

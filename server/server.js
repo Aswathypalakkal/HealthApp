@@ -35,7 +35,7 @@ app.post("/predict", async(req, res) => {
     try {
         const response = await axios.post('http://localhost:5000/predict', {
             values: values,
-            disease : diseases
+            disease : disease
         });
 
 
