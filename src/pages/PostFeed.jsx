@@ -25,6 +25,12 @@ const PostFeed = () => {
     <div className="feed-wrapper">
       <div className="post-scroll-area">
         {posts.map(post => (
+        <div className="post-wrapper" key={post.id}>
+              {/* Left side: Profile section */}
+          <div className="post-header">
+            <img src="https://i.pravatar.cc/150?img=3" alt="Profile" className="profile-pic" />
+            <span className="user-name">Aswathy</span>
+          </div>
           <div className="post-card" key={post.id}>
             <div className="post-content">
               {post.type === 'image' && (
@@ -43,6 +49,7 @@ const PostFeed = () => {
               <button>💬 Comment</button>
               <button>📤 Share</button>
             </div>
+          </div>
           </div>
         ))}
       </div>
