@@ -11,6 +11,7 @@ import DiabetesPredictor from './pages/diabetesPredictor';
 import HeartDiseasePredictor from './pages/HeartDiseasePredictor';
 import AlzheimerPredictor from './pages/AlzheimerPredictor';
 import PostFeed from './pages/PostFeed';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
   return (

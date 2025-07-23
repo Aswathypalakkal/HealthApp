@@ -54,7 +54,9 @@ const PostFeed = () => {
         ))}
       </div>
 
-      <button className="floating-button">+</button>
+      <button className="add-post-btn">
+        <i className="fas fa-plus"></i>
+      </button>
     </div>
   );
 };
