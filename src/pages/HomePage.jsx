@@ -58,6 +58,10 @@ const HomePage = () => {
         {section}
       </button>
     ))}
+      <div className="post-header">
+            <img src="https://i.pravatar.cc/150?img=3" alt="Profile" className="profile-pic" />
+            <span className="user-name">Aswathy</span>
+      </div>
   </nav>
       
 </header>
