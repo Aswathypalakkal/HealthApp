@@ -9,37 +9,6 @@ const HomePage = () => {
   const [activeSection, setActiveSection] = useState('home');
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   console.log("the login is :",isLoggedIn)
-  
-  let content = null;
-
-   if (!isLoggedIn) {
-     content = (
-      <div>
-        <h2>Please login to your account</h2>
-      </div>
-    );
-   }
-  else if (activeSection === 'detect') {
-    content = (
-      <div>
-        <DiseaseDetection />
-      </div>
-    );
-  }
-  else if (activeSection === 'health') {
-    content = (
-      <div>
-       <PostFeed />
-      </div>
-    );
-  }
-  else if (activeSection === 'connect') {
-    content = (
-      <div>
-         <h1>Connect to experts...</h1>
-      </div>
-    );
-  }
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Navbar */}
@@ -141,13 +110,7 @@ const HomePage = () => {
 
           </div>
         )}
-
-      {
-      activeSection != 'home' && (
-  <div>
-    {content}
-  </div>
-)}
+  
       
       </main>
 

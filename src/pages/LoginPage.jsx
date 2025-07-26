@@ -12,15 +12,25 @@ function App() {
   const [user, setUser] = useState(null);
 
   const handleGoogleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      setUser(result.user); // 🔒 Google login successful
-      dispatch(login(result.user)); // 🔁 Save to Redux
-      console.log('User:', result.user);
-    } catch (error) {
-      console.error('Login Error:', error.message);
-    }
-  };
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    const token = await result.user.getIdToken(); //  Get token
+    setUser(result.user);
+    dispatch(login(result.user));
+
+    // Send token to backend
+    const res = await fetch('http://localhost:3000/api/verifyToken', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token })
+    });
+
+    const data = await res.json();
+    console.log('Server response:', data);
+  } catch (error) {
+    console.error('Login Error:', error.message);
+  }
+};
 
    return (
  
