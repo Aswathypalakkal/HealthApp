@@ -9,31 +9,33 @@ const HomePage = () => {
   const [activeSection, setActiveSection] = useState('home');
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   console.log("the login is :",isLoggedIn)
-  return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
-      {/* Navbar */}
+ return (
+  <div className="flex flex-col min-h-screen bg-gray-100">
+    {/* Navbar */}
     <header className="bg-gradient-to-br from-sky-200 to-white py-4 shadow">
   <nav className="flex justify-center space-x-4 text-lg font-medium text-center">
-    {['home', 'detect', 'health', 'connect'].map((section) => (
-      <button
-        key={section}
+          {['home', 'detect', 'health', 'connect'].map((section) => (
+            <button
+              key={section}
       //  href={`#${section}`}
         className="hover:text-sky-900 transition duration-200 w-[8%]"
         onClick={() =>{ setActiveSection(section);
-           navigate(`/${section}`);
+                navigate(`/${section}`);
         }
         }
-      >
-        {section}
-      </button>
-    ))}
-      <div className="post-header">
-            <img src="https://i.pravatar.cc/150?img=3" alt="Profile" className="profile-pic" />
-            <span className="user-name">Aswathy</span>
-      </div>
-  </nav>
+            >
+              {section}
+            </button>
+          ))}
+        {user && (
+  <div className="post-header">
+    <img src={user.picture} alt="Profile" className="profile-pic" />
+    <span className="user-name">{user.name}</span>
+  </div>
+)}  
+      </nav>
       
-</header>
+    </header>
 
       {/* Main Content */}
       <main className="flex-grow p-6">

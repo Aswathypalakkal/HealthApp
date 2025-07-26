@@ -16,7 +16,7 @@ function App() {
     const result = await signInWithPopup(auth, googleProvider);
     const token = await result.user.getIdToken(); //  Get token
     setUser(result.user);
-    dispatch(login(result.user));
+  
 
     // Send token to backend
     const res = await fetch('http://localhost:3000/api/verifyToken', {
@@ -27,6 +27,7 @@ function App() {
 
     const data = await res.json();
     console.log('Server response:', data);
+    dispatch(login({ name: data.name, email:data.email, picture:data.picture}));
   } catch (error) {
     console.error('Login Error:', error.message);
   }

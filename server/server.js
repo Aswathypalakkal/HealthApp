@@ -65,12 +65,12 @@ app.post('/api/verifyToken', async (req, res) => {
   try {
     const decoded = await admin.auth().verifyIdToken(token); // ✅ Verify Firebase ID token
     console.log('Verified Firebase user:', decoded);
-
+    
     // OPTIONAL: you can check MongoDB for user existence here
     // Example:
     // const user = await User.findOne({ uid: decoded.uid }) || await User.create({ uid: decoded.uid, email: decoded.email });
 
-    res.send({ success: true, uid: decoded.uid, email: decoded.email });
+    res.send({ success: true, uid: decoded.uid, email: decoded.email, name:decoded.name, picture:decoded.picture});
   } catch (err) {
     console.error('Invalid token', err);
     res.status(401).send({ error: 'Invalid token' });
