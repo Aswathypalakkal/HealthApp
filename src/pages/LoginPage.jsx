@@ -37,7 +37,7 @@ function App() {
     <div className="bg-sky-50 font-sans overflow-x-hidden overflow-y-hidden">
 
 
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md text-center">
+          <div className="w-[30%] mx-auto bg-white p-8 rounded-2xl shadow-xl text-center">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">Login to Your Account</h2>
         <p className="mb-8 text-gray-500">Use one of the following methods</p>
 
