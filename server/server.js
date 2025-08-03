@@ -3,16 +3,25 @@ import bodyParser from 'body-parser';
 import axios from 'axios';
 import cors from 'cors';
 import path from 'path';
+import http from 'http';
 import { fileURLToPath } from 'url';
-
+//const { Server } = require('socket.io');
+import { Server } from 'socket.io'; // ✅ named import
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 import admin from 'firebase-admin';
 import { readFile } from 'fs/promises';
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000", // your frontend origin
+    methods: ["GET", "POST"]
+  }
+});
 
 // Load the Firebase service account JSON
 const serviceAccount = JSON.parse(
@@ -77,7 +86,23 @@ app.post('/api/verifyToken', async (req, res) => {
   }
 });
 
+// 🔌 Socket.IO connection setup
+io.on('connection', (socket) => {
+  console.log('Client connected:', socket.id);
+
+  socket.on("new_post", (text, media)=>{
+    console.log("the post text is ",text)
+    console.log("the post media is ",media)
+
+  });
+
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected:', socket.id);
+  });
+});
+
 // ✅ Start the server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

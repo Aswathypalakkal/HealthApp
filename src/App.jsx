@@ -11,6 +11,7 @@ import DiabetesPredictor from './pages/diabetesPredictor';
 import HeartDiseasePredictor from './pages/HeartDiseasePredictor';
 import AlzheimerPredictor from './pages/AlzheimerPredictor';
 import PostFeed from './pages/PostFeed';
+import CreatePost from './pages/CreatePostPopup';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import PrivateRoute from './components/PrivateRoute';
 
@@ -159,6 +160,14 @@ function App() {
         element={
           <PrivateRoute>
             <DeseaseResult />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/createPost"
+        element={
+          <PrivateRoute>
+            <CreatePost />
           </PrivateRoute>
         }
       />
