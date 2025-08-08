@@ -15,7 +15,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 import admin from 'firebase-admin';
 import { readFile } from 'fs/promises';
+import { v4 as uuidv4 } from 'uuid';
 const server = http.createServer(app);
+var posts = []
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:3000", // your frontend origin
@@ -90,9 +92,10 @@ app.post('/api/verifyToken', async (req, res) => {
 io.on('connection', (socket) => {
   console.log('Client connected:', socket.id);
 
-  socket.on("new_post", (text, media)=>{
-    console.log("the post text is ",text)
-    console.log("the post media is ",media)
+  socket.on("new_post", (newPost)=>{
+   newPost.id = uuidv4()
+   posts.push(newPost);
+   io.emit("update_new_post", newPost)
 
   });
 

@@ -36,6 +36,10 @@ useEffect(() => {
   if (socket.connected) {
     onConnect();
   }
+  socket.on("update_new_post", (newPost)=>{
+  setPosts(prevPosts => [...prevPosts, newPost]);
+  console.log("posts are here after updation :",posts)
+  })
   socket.on("connect", onConnect);
   return () => {
     socket.off("connect", onConnect);
@@ -60,17 +64,23 @@ const [showPopup, setShowPopup] = useState(false);
 
   const handleCreatePost = async ({ text, media }) => {
     console.log('Post submitted:', text, media);
-     socket.emit("new_post", text, media);
+    var postToSend;
 
-    try {
-      await axios.post('http://localhost:5000/create-post', {
-        text,
-        media,
-      });
-      // No need to update state here — socket will handle it
-    } catch (err) {
-      console.error('Error posting:', err);
+   if(!text){
+    console.log("No text is there");
+    postToSend = {
+      type : (media.type).split('/')[0],
+      content : media.content
     }
+   }
+   else{
+     postToSend = {
+      type : 'text',
+      content : text
+    }
+   }
+   socket.emit("new_post",postToSend);
+
   };
   return (
     <div className="feed-wrapper">
@@ -111,7 +121,9 @@ const [showPopup, setShowPopup] = useState(false);
         {showPopup && (
         <CreatePostPopup
           onClose={handleClosePopup}
-          onSubmit={handleCreatePost}
+         onSubmit={async ({ text, media }) => {
+    await handleCreatePost({ text, media });
+  }}
         />
       )}
     </div>

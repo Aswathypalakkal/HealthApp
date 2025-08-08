@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 
 export default function CreatePostPopup({ onClose, onSubmit }) {
   const [text, setText] = useState('');
-  const [media, setMedia] = useState(null);
+  const [media, setMedia] = useState({
+  type: '',     // e.g., 'image', 'video'
+  content: null // could be a URL or a File/Blob
+});
 
   const handleSubmit = () => {
   console.log("handle submit called ..................")
@@ -37,7 +40,19 @@ export default function CreatePostPopup({ onClose, onSubmit }) {
           type="file"
           accept="image/*,video/*"
           className="mb-4"
-          onChange={(e) => setMedia(e.target.files[0])}
+          onChange={(e) => {
+            const file = e.target.files[0];
+
+            if (file) 
+            {
+            const imageUrl = URL.createObjectURL(file);
+            media.type = file.type
+            media.content = imageUrl
+            setMedia(media)
+           }
+
+          if (!file) return;
+  }}
         />
 
         <div className="flex justify-end space-x-3">
