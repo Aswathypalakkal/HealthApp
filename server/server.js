@@ -17,6 +17,8 @@ import admin from 'firebase-admin';
 import { readFile } from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
 const server = http.createServer(app);
+import mongoose from 'mongoose';
+import User from './models/User.js';
 var posts = []
 const io = new Server(server, {
   cors: {
@@ -24,6 +26,7 @@ const io = new Server(server, {
     methods: ["GET", "POST"]
   }
 });
+mongoose.connect('mongodb://localhost:27017/health_user');
 
 // Load the Firebase service account JSON
 const serviceAccount = JSON.parse(
@@ -76,6 +79,17 @@ app.post('/api/verifyToken', async (req, res) => {
   try {
     const decoded = await admin.auth().verifyIdToken(token); // ✅ Verify Firebase ID token
     console.log('Verified Firebase user:', decoded);
+     // Check if user already exists in MongoDB
+    let user = await User.findOne({ uid: decoded.uid });
+    if (!user) {
+      // Create new user in MongoDB
+      user = new User({
+        uid: decoded.uid,
+        email: decoded.email,
+        name: decoded.name || null
+      });
+      await user.save();
+    }
     
     // OPTIONAL: you can check MongoDB for user existence here
     // Example:
