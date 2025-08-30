@@ -7,4 +7,9 @@ const userSchema = new mongoose.Schema({
   name: String
 }, { timestamps: true });
 
-export default mongoose.model('User', userSchema);
+const postSchema = new mongoose.Schema({
+  postdata: { type: Object }
+}, { timestamps: true });
+
+export const User = mongoose.model('User', userSchema);
+export const post = mongoose.model('postSchema', postSchema);

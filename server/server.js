@@ -18,7 +18,7 @@ import { readFile } from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
 const server = http.createServer(app);
 import mongoose from 'mongoose';
-import User from './models/User.js';
+import { User, post } from './models/User.js';
 var posts = []
 const io = new Server(server, {
   cors: {
@@ -106,13 +106,28 @@ app.post('/api/verifyToken', async (req, res) => {
 io.on('connection', (socket) => {
   console.log('Client connected:', socket.id);
 
-  socket.on("new_post", (newPost)=>{
+  socket.on("new_post", async(newPost)=>{
    newPost.id = uuidv4()
+   newPost.likes = 0
    posts.push(newPost);
+   // Create new user in MongoDB
+      let postStore = new post(newPost);
+      await postStore.save();
    io.emit("update_new_post", newPost)
 
   });
 
+  socket.on("update_post",(id)=>{
+    posts.map((post) => {
+      if (post.id === id)
+        {             
+          post.likes= post.likes + 1;
+        }
+     io.emit("update_post_in_ui",(post));
+    })
+    console.log("updated posts in server isss:",posts)
+     });
+  
 
   socket.on('disconnect', () => {
     console.log('Client disconnected:', socket.id);

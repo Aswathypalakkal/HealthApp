@@ -14,17 +14,20 @@ const PostFeed = () => {
   {
     id: 1,
     type: 'image',
-    content: 'Add some picture as post'
+    content: 'Add some picture as post',
+    likes:0
   },
   {
     id: 2,
     type: 'video',
     content: 'https://www.w3schools.com/html/mov_bbb.mp4',
+     likes:0
   },
   {
     id: 3,
     type: 'text',
     content: 'This is a text-only post showing how content can scale.',
+     likes:0
   },
 ]);
 
@@ -40,6 +43,15 @@ useEffect(() => {
   setPosts(prevPosts => [...prevPosts, newPost]);
   console.log("posts are here after updation :",posts)
   })
+  socket.on("update_post_in_ui",(newData)=>{
+    setPosts(prevPosts =>
+      prevPosts.map(post =>
+        post.id === newData.id 
+          ? { ...post, ...newData }  // merge old post with new data
+          : post                     // keep other posts as is
+        )
+       );
+    });
   socket.on("connect", onConnect);
   return () => {
     socket.off("connect", onConnect);
@@ -61,6 +73,10 @@ const [showPopup, setShowPopup] = useState(false);
     console.log("popup should close ....")
     setShowPopup(false);
   };
+  function likeAction(id)
+  {
+   socket.emit("update_post",id);
+  }
 
   const handleCreatePost = async ({ text, media }) => {
     console.log('Post submitted:', text, media);
@@ -106,7 +122,7 @@ const [showPopup, setShowPopup] = useState(false);
               {post.type === 'text' && <p className="post-text">{post.content}</p>}
             </div>
             <div className="post-actions">
-              <button>❤️ Like</button>
+              <button onClick={() => likeAction(post.id)}>{((post.likes))}❤️ Like</button>
               <button>💬 Comment</button>
               <button>📤 Share</button>
             </div>
