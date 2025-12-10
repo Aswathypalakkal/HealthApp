@@ -6,10 +6,15 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaMicrosoft } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
 import { login } from './authSlice';
+import { Navigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";  // 👈 last path
 
   const handleGoogleLogin = async () => {
   try {
@@ -27,6 +32,13 @@ function App() {
 
     const data = await res.json();
     console.log('Server response:', data);
+     if (data.success) {
+     console.log("the response status is true");
+     navigate(from, { replace: true });  // 👈 go back to last visited page
+    }
+    else{
+     console.log("the respose status is false");
+    }
     dispatch(login({ name: data.name, email:data.email, picture:data.picture}));
   } catch (error) {
     console.error('Login Error:', error.message);
