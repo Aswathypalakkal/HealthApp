@@ -7,9 +7,11 @@ import CreatePostPopup from './CreatePostPopup'; // <-- 🔴 Import is necessary
 import socket from '../sockets/socket'; // ✅ Reuse shared socket
 import { useEffect } from 'react';
 import axios from 'axios';
+import CommentBox from "./CommentBox"; // adjust the path if needed
 
 
 const PostFeed = () => {
+  const [showComments, setShowComments] = useState(false);
   const [posts, setPosts] = useState([
   {
     id: 1,
@@ -123,7 +125,20 @@ const [showPopup, setShowPopup] = useState(false);
             </div>
             <div className="post-actions">
               <button onClick={() => likeAction(post.id)}>{((post.likes))}❤️ Like</button>
-              <button>💬 Comment</button>
+              <button
+                onClick={() => setShowComments(!showComments)}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm"
+              >
+                {showComments ? "Hide Comments" : "Show Comments"}
+              </button>
+            {/* Comment box appears only when button is clicked */}
+            {showComments && (
+              <div className="mt-3">
+                <CommentBox 
+                  storageKey={`comments-post-${post.id}`}
+                />
+              </div>
+            )}
               <button>📤 Share</button>
             </div>
           </div>
